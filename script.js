@@ -1,427 +1,867 @@
-// ============================================
-// Fearless Kits — Main JavaScript
-// ============================================
+/* ============================================================
+   Fearless Kits v2 — Main JavaScript
+   Premium Football Jersey Ecommerce Showcase
+   Vanilla JS · No Dependencies
+   ============================================================ */
 
-// Product Data
+'use strict';
+
+/* ----------------------------------------------------------
+   0. PRODUCT DATA
+   ---------------------------------------------------------- */
 const products = [
     {
         id: 1,
-        name: "Navy Gold Edition",
-        club: "Inter Milan",
-        league: "serie-a",
-        type: "Home Kit 24/25",
-        price: "৳1,299",
-        image: "images/hero-jersey.png",
-        badge: "Hot",
-        badgeType: "hot"
+        name: 'Man City Home Kit 26/27',
+        club: 'Manchester City',
+        league: 'premier-league',
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: ['images/jersey-blue.png', 'images/jersey-blue.png', 'images/jersey-blue.png'],
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        badge: 'New',
+        badgeType: 'new',
+        description: 'Manchester City 2026/27 Home Kit Player Edition. Premium breathable fabric with authentic Etihad Airways sponsor.'
     },
     {
         id: 2,
-        name: "Devil's Red",
-        club: "Manchester United",
-        league: "premier-league",
-        type: "Home Kit 24/25",
-        price: "৳1,299",
-        image: "images/jersey-red.png",
-        badge: "Popular",
-        badgeType: "popular"
+        name: 'Real Madrid Home Kit 26/27',
+        club: 'Real Madrid',
+        league: 'la-liga',
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: ['images/real-madrid-home.png', 'images/jersey-white.png', 'images/real-madrid-home.png'],
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        badge: 'Bestseller',
+        badgeType: 'popular',
+        description: 'Real Madrid 2026/27 Home Kit Player Edition. Iconic white with gold accents. Emirates Fly Better sponsor.'
     },
     {
         id: 3,
-        name: "Royal White",
-        club: "Real Madrid",
-        league: "la-liga",
-        type: "Home Kit 24/25",
-        price: "৳1,399",
-        image: "images/jersey-white.png",
-        badge: "New",
-        badgeType: "new"
+        name: 'Barcelona Home Kit 26/27',
+        club: 'FC Barcelona',
+        league: 'la-liga',
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: ['images/jersey-red.png', 'images/jersey-red.png', 'images/jersey-red.png'],
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        badge: 'Hot',
+        badgeType: 'hot',
+        description: 'FC Barcelona 2026/27 Home Kit Player Edition. Classic blaugrana stripes with Spotify sponsor.'
     },
     {
         id: 4,
-        name: "Shadow Black",
-        club: "Juventus",
-        league: "serie-a",
-        type: "Third Kit 24/25",
-        price: "৳1,299",
-        image: "images/jersey-black.png",
-        badge: "",
-        badgeType: ""
+        name: 'Barcelona Away Kit 26/27',
+        club: 'FC Barcelona',
+        league: 'la-liga',
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: ['images/jersey-yellow.png', 'images/jersey-yellow.png', 'images/jersey-yellow.png'],
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        badge: 'New',
+        badgeType: 'new',
+        description: 'FC Barcelona 2026/27 Away Kit Player Edition. Stunning golden design with Spotify sponsor.'
     },
     {
         id: 5,
-        name: "Sky Blue",
-        club: "Manchester City",
-        league: "premier-league",
-        type: "Home Kit 24/25",
-        price: "৳1,399",
-        image: "images/jersey-blue.png",
-        badge: "Bestseller",
-        badgeType: "popular"
-    },
-    {
-        id: 6,
-        name: "Samba Gold",
-        club: "Brazil",
-        league: "national",
-        type: "Home Kit 2024",
-        price: "৳1,499",
-        image: "images/jersey-yellow.png",
-        badge: "Limited",
-        badgeType: "hot"
+        name: 'PSG Jordan Special Kit 26/27',
+        club: 'Paris Saint-Germain',
+        league: 'ligue-1',
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: ['images/jersey-black.png', 'images/jersey-black.png', 'images/jersey-black.png'],
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        badge: 'Limited',
+        badgeType: 'hot',
+        description: 'PSG 2026/27 Jordan Special Edition. Premium black with Jumpman logo. Limited availability.'
     }
 ];
 
-// ============================================
-// Preloader
-// ============================================
-window.addEventListener('load', () => {
+/* ----------------------------------------------------------
+   Facebook links used across the site
+   ---------------------------------------------------------- */
+const FB_PAGE_URL  = 'https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr';
+const FB_MESSENGER = 'https://m.me/fearlesskits';
+
+/* ----------------------------------------------------------
+   1. PRELOADER
+   ---------------------------------------------------------- */
+function initPreloader() {
     const preloader = document.getElementById('preloader');
-    setTimeout(() => {
-        preloader.classList.add('loaded');
-        document.body.classList.add('loaded');
-        initAnimations();
-        animateCounters();
-    }, 1500);
-});
+    if (!preloader) return;
 
-// ============================================
-// Navbar
-// ============================================
-const navbar = document.getElementById('navbar');
-const navToggle = document.getElementById('nav-toggle');
-const mobileOverlay = document.getElementById('mobile-menu-overlay');
-const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
+    // Guarantee a minimum 1.5s display time
+    const MIN_DISPLAY = 1500;
+    const start = Date.now();
 
-let lastScroll = 0;
+    function hidePreloader() {
+        const elapsed = Date.now() - start;
+        const remaining = Math.max(0, MIN_DISPLAY - elapsed);
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Add scrolled state
-    if (currentScroll > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+        setTimeout(() => {
+            preloader.classList.add('preloader--hidden');
+            document.body.classList.remove('no-scroll');
+            initScrollAnimations();   // kick off reveals once content is visible
+            animateHeroCounters();
+        }, remaining);
     }
-    
-    // Hide/show on scroll direction
-    if (currentScroll > lastScroll && currentScroll > 200) {
-        navbar.classList.add('hidden');
+
+    if (document.readyState === 'complete') {
+        hidePreloader();
     } else {
-        navbar.classList.remove('hidden');
+        window.addEventListener('load', hidePreloader);
     }
-    
-    lastScroll = currentScroll;
-    
-    // Active nav link
-    updateActiveNavLink();
-    
-    // Back to top button
-    const backToTop = document.getElementById('back-to-top');
-    if (currentScroll > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-});
+}
 
-// Mobile menu toggle
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    mobileOverlay.classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-});
+/* ----------------------------------------------------------
+   2. NAVBAR
+   ---------------------------------------------------------- */
+function initNavbar() {
+    const nav       = document.querySelector('.navbar');
+    const links     = document.querySelectorAll('.nav-link[href^="#"]');
+    const sections  = document.querySelectorAll('section[id]');
+    const burger    = document.querySelector('.nav-toggle, #nav-toggle');
+    const mobileNav = document.querySelector('.mobile-menu-overlay, #mobile-menu-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-menu-overlay a, .mobile-link');
 
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        mobileOverlay.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    });
-});
+    if (!nav) return;
 
-// Update active nav link based on scroll position
-function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let currentSection = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
-        if (window.pageYOffset >= sectionTop) {
-            currentSection = section.getAttribute('id');
+    let lastScroll = 0;
+    let ticking    = false;
+
+    /* --- Scroll show/hide + glassmorphism --- */
+    function onScroll() {
+        const scrollY = window.scrollY;
+
+        // Add glassmorphism after scrolling past hero
+        if (scrollY > 80) {
+            nav.classList.add('navbar--scrolled');
+        } else {
+            nav.classList.remove('navbar--scrolled');
         }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-section') === currentSection) {
-            link.classList.add('active');
+
+        // Hide on scroll-down, show on scroll-up (after 300px)
+        if (scrollY > 300) {
+            if (scrollY > lastScroll + 5) {
+                nav.classList.add('navbar--hidden');
+            } else if (scrollY < lastScroll - 5) {
+                nav.classList.remove('navbar--hidden');
+            }
+        } else {
+            nav.classList.remove('navbar--hidden');
         }
+
+        lastScroll = scrollY;
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(onScroll);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    /* --- Active section highlighting --- */
+    function highlightActive() {
+        let current = '';
+        sections.forEach(sec => {
+            const top = sec.offsetTop - 120;
+            if (window.scrollY >= top) current = sec.id;
+        });
+        links.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+        });
+    }
+    window.addEventListener('scroll', highlightActive, { passive: true });
+    highlightActive();
+
+    /* --- Smooth scrolling for anchor links --- */
+    function smoothScroll(e) {
+        const href = e.currentTarget.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Close mobile nav if open
+        closeMobileNav();
+    }
+    links.forEach(l => l.addEventListener('click', smoothScroll));
+    mobileLinks.forEach(l => l.addEventListener('click', smoothScroll));
+
+    /* --- Mobile hamburger --- */
+    function openMobileNav() {
+        if (mobileNav) {
+            mobileNav.classList.add('open');
+            document.body.classList.add('no-scroll');
+        }
+        if (burger) burger.classList.add('active');
+    }
+    function closeMobileNav() {
+        if (mobileNav) {
+            mobileNav.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+        }
+        if (burger) burger.classList.remove('active');
+    }
+
+    if (burger) {
+        burger.addEventListener('click', () => {
+            const isOpen = mobileNav && mobileNav.classList.contains('open');
+            isOpen ? closeMobileNav() : openMobileNav();
+        });
+    }
+}
+
+/* ----------------------------------------------------------
+   3. HERO — Floating Jerseys & Mouse Parallax & Counters
+   ---------------------------------------------------------- */
+function initHero() {
+    const hero = document.querySelector('.hero, #hero');
+    if (!hero) return;
+
+    /* --- Floating jersey images (4 floating elements) --- */
+    const floatingContainer = hero.querySelector('.hero-floating, .floating-jerseys');
+    if (floatingContainer) {
+        const floatImages = floatingContainer.querySelectorAll('img, .float-jersey');
+        // Each jersey gets a unique animation delay & duration via CSS.
+        // JS adds random initial positions for variety.
+        floatImages.forEach((img, i) => {
+            img.style.animationDelay  = `${i * 0.7}s`;
+            img.style.animationDuration = `${4 + i * 0.8}s`;
+        });
+    }
+
+    /* --- Mouse parallax on desktop --- */
+    if (window.matchMedia('(pointer: fine)').matches) {
+        hero.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const cx = (clientX / window.innerWidth  - 0.5) * 2; // -1 to 1
+            const cy = (clientY / window.innerHeight - 0.5) * 2;
+
+            const layers = hero.querySelectorAll('[data-parallax]');
+            layers.forEach(layer => {
+                const speed = parseFloat(layer.dataset.parallax) || 20;
+                const x = cx * speed;
+                const y = cy * speed;
+                layer.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    }
+}
+
+/* --- Counter animation --- */
+function animateHeroCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach(el => {
+        const target = parseInt(el.dataset.count, 10);
+        if (isNaN(target)) return;
+
+        const duration = 2000; // ms
+        const step = Math.max(1, Math.floor(target / 60));
+        let current = 0;
+        const start = performance.now();
+
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            // Ease-out quad
+            const eased = 1 - (1 - progress) * (1 - progress);
+            current = Math.floor(eased * target);
+            el.textContent = current;
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
     });
 }
 
-// ============================================
-// Smooth Scrolling
-// ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const offset = 80;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+/* ----------------------------------------------------------
+   4. PRODUCT GRID — Filtering & Rendering
+   ---------------------------------------------------------- */
+function initProductGrid() {
+    const grid      = document.querySelector('.products-grid, #products-grid');
+    const filterBar = document.querySelector('.filter-tabs, .product-filters');
+    if (!grid) return;
+
+    let activeFilter = 'all';
+
+    /* --- Render cards --- */
+    function renderProducts(filter) {
+        const filtered = filter === 'all'
+            ? products
+            : products.filter(p => p.league === filter);
+
+        // Fade-out existing cards
+        grid.classList.add('grid--fading');
+
+        setTimeout(() => {
+            grid.innerHTML = '';
+
+            filtered.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = `${i * 0.08}s`;
+                card.dataset.id = p.id;
+
+                card.innerHTML = `
+                    <div class="product-card__image-wrap">
+                        <span class="product-badge product-badge--${p.badgeType}">${p.badge}</span>
+                        <img src="${p.images[0]}" alt="${p.name}" class="product-card__img" loading="lazy">
+                        <div class="product-card__overlay">
+                            <button class="btn-quick-view" data-id="${p.id}">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-card__info">
+                        <span class="product-card__club">${p.club}</span>
+                        <h3 class="product-card__name">${p.name}</h3>
+                        <span class="product-card__type">${p.type}</span>
+                        <div class="product-card__footer">
+                            <span class="product-card__price">${p.price}</span>
+                            <button class="btn-order-now" data-id="${p.id}">Order Now</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
-        }
-    });
-});
 
-// ============================================
-// Back to Top
-// ============================================
-document.getElementById('back-to-top').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+            // Bind quick-view buttons
+            grid.querySelectorAll('.btn-quick-view').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openQuickView(parseInt(btn.dataset.id, 10));
+                });
+            });
 
-// ============================================
-// Products Grid
-// ============================================
-function renderProducts(filter = 'all') {
-    const grid = document.getElementById('products-grid');
-    const filtered = filter === 'all' 
-        ? products 
-        : products.filter(p => p.league === filter);
-    
-    grid.innerHTML = filtered.map((product, index) => `
-        <div class="product-card" data-animate="fade-up" data-delay="${index * 80}" style="animation-delay: ${index * 0.08}s">
-            <div class="product-image-wrapper">
-                ${product.badge ? `<span class="product-badge ${product.badgeType}">${product.badge}</span>` : ''}
-                <img src="${product.image}" alt="${product.name} - ${product.club} Player Edition Jersey" class="product-image" loading="lazy">
-                <div class="product-overlay">
-                    <a href="#contact" class="product-order-btn">Order Now</a>
+            // Clicking the card itself also opens quick view
+            grid.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    openQuickView(parseInt(card.dataset.id, 10));
+                });
+            });
+
+            // Bind Order Now buttons
+            grid.querySelectorAll('.btn-order-now').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.open(FB_MESSENGER, '_blank');
+                });
+            });
+
+            grid.classList.remove('grid--fading');
+        }, 300);
+    }
+
+    /* --- Filter tabs --- */
+    if (filterBar) {
+        const tabs = filterBar.querySelectorAll('[data-filter]');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                activeFilter = tab.dataset.filter;
+                renderProducts(activeFilter);
+            });
+        });
+    }
+
+    // Initial render
+    renderProducts('all');
+}
+
+/* ----------------------------------------------------------
+   5. PRODUCT QUICK-VIEW MODAL
+   ---------------------------------------------------------- */
+function createQuickViewModal() {
+    // Only create once
+    if (document.getElementById('quick-view-modal')) return;
+
+    const modal = document.createElement('div');
+    modal.id = 'quick-view-modal';
+    modal.className = 'qv-modal';
+    modal.innerHTML = `
+        <div class="qv-modal__backdrop"></div>
+        <div class="qv-modal__container">
+            <button class="qv-modal__close" aria-label="Close">&times;</button>
+            <div class="qv-modal__body">
+                <!-- Gallery -->
+                <div class="qv-gallery">
+                    <div class="qv-gallery__main">
+                        <img id="qv-main-img" src="" alt="Product Image">
+                    </div>
+                    <div class="qv-gallery__thumbs" id="qv-thumbs"></div>
                 </div>
-            </div>
-            <div class="product-info">
-                <span class="product-club">${product.club}</span>
-                <h3 class="product-name">${product.name}</h3>
-                <span class="product-type">${product.type}</span>
-                <div class="product-bottom">
-                    <span class="product-price">${product.price}</span>
-                    <span class="product-tag">Player Edition</span>
+                <!-- Details -->
+                <div class="qv-details">
+                    <span class="qv-details__club" id="qv-club"></span>
+                    <h2 class="qv-details__name" id="qv-name"></h2>
+                    <span class="qv-details__type" id="qv-type"></span>
+                    <p class="qv-details__price" id="qv-price"></p>
+                    <p class="qv-details__desc" id="qv-desc"></p>
+
+                    <div class="qv-details__sizes">
+                        <span class="qv-details__label">Select Size:</span>
+                        <div class="qv-size-options" id="qv-sizes"></div>
+                    </div>
+
+                    <div class="qv-details__actions">
+                        <a href="${FB_PAGE_URL}" target="_blank" rel="noopener" class="btn btn--primary btn--fb-order">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                            Order on Facebook
+                        </a>
+                        <button class="btn btn--secondary btn--messenger-order">
+                            Order via Messenger
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    `).join('');
-    
-    // Re-observe new elements
-    observeElements();
-}
+    `;
+    document.body.appendChild(modal);
 
-// Filter tabs
-document.querySelectorAll('.filter-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        const filter = tab.getAttribute('data-filter');
-        const grid = document.getElementById('products-grid');
-        
-        // Fade out
-        grid.style.opacity = '0';
-        grid.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            renderProducts(filter);
-            // Fade in
-            requestAnimationFrame(() => {
-                grid.style.opacity = '1';
-                grid.style.transform = 'translateY(0)';
-            });
-        }, 300);
+    // Close handlers
+    modal.querySelector('.qv-modal__close').addEventListener('click', closeQuickView);
+    modal.querySelector('.qv-modal__backdrop').addEventListener('click', closeQuickView);
+
+    // Messenger button
+    modal.querySelector('.btn--messenger-order').addEventListener('click', () => {
+        window.open(FB_MESSENGER, '_blank');
     });
-});
 
-// Initial render
-renderProducts();
-
-// ============================================
-// Scroll Animations
-// ============================================
-function initAnimations() {
-    observeElements();
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeQuickView();
+    });
 }
 
-function observeElements() {
+function openQuickView(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    createQuickViewModal(); // ensure it exists
+
+    const modal   = document.getElementById('quick-view-modal');
+    const mainImg = document.getElementById('qv-main-img');
+    const thumbs  = document.getElementById('qv-thumbs');
+    const sizes   = document.getElementById('qv-sizes');
+
+    // Populate details
+    document.getElementById('qv-name').textContent  = product.name;
+    document.getElementById('qv-club').textContent  = product.club;
+    document.getElementById('qv-type').textContent  = product.type;
+    document.getElementById('qv-price').textContent = product.price;
+    document.getElementById('qv-desc').textContent  = product.description;
+
+    // Gallery — main image
+    mainImg.src = product.images[0];
+    mainImg.alt = product.name;
+
+    // Gallery — thumbnails
+    thumbs.innerHTML = '';
+    product.images.forEach((src, i) => {
+        const thumb = document.createElement('button');
+        thumb.className = 'qv-thumb' + (i === 0 ? ' qv-thumb--active' : '');
+        thumb.innerHTML = `<img src="${src}" alt="Thumbnail ${i + 1}">`;
+        thumb.addEventListener('click', () => {
+            mainImg.src = src;
+            // Toggle active class
+            thumbs.querySelectorAll('.qv-thumb').forEach(t => t.classList.remove('qv-thumb--active'));
+            thumb.classList.add('qv-thumb--active');
+        });
+        thumbs.appendChild(thumb);
+    });
+
+    // Size selector
+    sizes.innerHTML = '';
+    product.sizes.forEach((size, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'qv-size-btn' + (i === 0 ? ' qv-size-btn--active' : '');
+        btn.textContent = size;
+        btn.addEventListener('click', () => {
+            sizes.querySelectorAll('.qv-size-btn').forEach(b => b.classList.remove('qv-size-btn--active'));
+            btn.classList.add('qv-size-btn--active');
+        });
+        sizes.appendChild(btn);
+    });
+
+    // Open with animation
+    requestAnimationFrame(() => {
+        modal.classList.add('qv-modal--open');
+        document.body.classList.add('no-scroll');
+    });
+}
+
+function closeQuickView() {
+    const modal = document.getElementById('quick-view-modal');
+    if (!modal) return;
+
+    modal.classList.remove('qv-modal--open');
+    modal.classList.add('qv-modal--closing');
+
+    // Wait for CSS exit animation
+    setTimeout(() => {
+        modal.classList.remove('qv-modal--closing');
+        document.body.classList.remove('no-scroll');
+    }, 350);
+}
+
+/* ----------------------------------------------------------
+   6. CONTACT FORM — Google Forms Integration
+   ---------------------------------------------------------- */
+function initContactForm() {
+    const form = document.querySelector('#contact-form, .contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name    = form.querySelector('[name="name"]');
+        const phone   = form.querySelector('[name="phone"]');
+        const message = form.querySelector('[name="message"]');
+
+        if (!name || !phone || !message) return;
+
+        // Validate basic fields
+        if (!name.value.trim() || !phone.value.trim() || !message.value.trim()) {
+            showFormFeedback(form, 'Please fill in all fields.', 'error');
+            return;
+        }
+
+        // -------------------------------------------------------
+        // Google Forms submission via hidden iframe
+        // REPLACE_WITH_YOUR_GOOGLE_FORM_ID — Update the URL below
+        // with your actual Google Form action URL, e.g.:
+        // https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse
+        // Also update the entry.XXXXX field IDs to match your form.
+        // -------------------------------------------------------
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/REPLACE_WITH_YOUR_GOOGLE_FORM_ID/formResponse';
+
+        const params = new URLSearchParams({
+            'entry.name':    name.value.trim(),    // REPLACE with real entry ID e.g. entry.123456789
+            'entry.phone':   phone.value.trim(),   // REPLACE with real entry ID
+            'entry.message': message.value.trim()  // REPLACE with real entry ID
+        });
+
+        const submitUrl = `${GOOGLE_FORM_URL}?${params.toString()}`;
+
+        // Hidden iframe approach — avoids redirect
+        let iframe = document.getElementById('gform-iframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'gform-iframe';
+            iframe.name = 'gform-iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+        }
+        iframe.src = submitUrl;
+
+        // Reset form & show success
+        form.reset();
+        showFormFeedback(form, 'Message sent successfully! We\'ll get back to you soon.', 'success');
+    });
+}
+
+/**
+ * Show an animated feedback message below the form.
+ */
+function showFormFeedback(form, text, type) {
+    // Remove any existing feedback
+    const old = form.querySelector('.form-feedback');
+    if (old) old.remove();
+
+    const el = document.createElement('div');
+    el.className = `form-feedback form-feedback--${type}`;
+    el.innerHTML = type === 'success'
+        ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <path d="M20 6L9 17l-5-5"/>
+           </svg> <span>${text}</span>`
+        : `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+             <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+           </svg> <span>${text}</span>`;
+
+    form.appendChild(el);
+
+    // Trigger entrance animation
+    requestAnimationFrame(() => el.classList.add('form-feedback--visible'));
+
+    // Auto-dismiss after 5s
+    setTimeout(() => {
+        el.classList.remove('form-feedback--visible');
+        setTimeout(() => el.remove(), 400);
+    }, 5000);
+}
+
+/* ----------------------------------------------------------
+   7. PARTICLES BACKGROUND
+   ---------------------------------------------------------- */
+function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 45;
+    let animId;
+
+    function resize() {
+        width  = canvas.width  = canvas.parentElement.clientWidth  || window.innerWidth;
+        height = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x       = Math.random() * width;
+            this.y       = Math.random() * height;
+            this.radius  = Math.random() * 2.5 + 0.5;
+            this.speedX  = (Math.random() - 0.5) * 0.4;
+            this.speedY  = -(Math.random() * 0.5 + 0.15); // drift upward
+            this.opacity = Math.random() * 0.5 + 0.2;
+            this.life    = 0;
+            this.maxLife = Math.random() * 300 + 200;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.life++;
+
+            // Fade in/out
+            const progress = this.life / this.maxLife;
+            if (progress < 0.1) {
+                this.drawOpacity = this.opacity * (progress / 0.1);
+            } else if (progress > 0.8) {
+                this.drawOpacity = this.opacity * ((1 - progress) / 0.2);
+            } else {
+                this.drawOpacity = this.opacity;
+            }
+
+            // Reset when off-screen or expired
+            if (this.life >= this.maxLife || this.y < -10 || this.x < -10 || this.x > width + 10) {
+                this.reset();
+                this.y = height + 10;
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.drawOpacity})`; // gold
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        resize();
+        particles = [];
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        animId = requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    // Debounced resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            resize();
+        }, 200);
+    });
+}
+
+/* ----------------------------------------------------------
+   8. SCROLL ANIMATIONS (IntersectionObserver)
+   ---------------------------------------------------------- */
+function initScrollAnimations() {
+    const animElements = document.querySelectorAll('[data-animate]');
+    if (!animElements.length) return;
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const delay = entry.target.getAttribute('data-delay') || 0;
+                const el    = entry.target;
+                const anim  = el.dataset.animate;   // fade-up, fade-left, fade-right
+                const delay = el.dataset.delay || 0;
+
                 setTimeout(() => {
-                    entry.target.classList.add('animated');
-                }, delay);
-                observer.unobserve(entry.target);
+                    el.classList.add('animated', `animated--${anim}`);
+                }, parseInt(delay, 10));
+
+                observer.unobserve(el);
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
     });
-    
-    document.querySelectorAll('[data-animate]').forEach(el => {
-        if (!el.classList.contains('animated')) {
-            observer.observe(el);
-        }
-    });
+
+    animElements.forEach(el => observer.observe(el));
 }
 
-// ============================================
-// Counter Animation
-// ============================================
-function animateCounters() {
-    const counters = document.querySelectorAll('[data-count]');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = parseInt(entry.target.getAttribute('data-count'));
-                animateCounter(entry.target, target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => observer.observe(counter));
-}
+/* ----------------------------------------------------------
+   9. BACK TO TOP BUTTON
+   ---------------------------------------------------------- */
+function initBackToTop() {
+    const btn = document.querySelector('.back-to-top, #back-to-top');
+    if (!btn) return;
 
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 60;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
+    const SHOW_AFTER = 500; // px
+
+    function toggleVisibility() {
+        if (window.scrollY > SHOW_AFTER) {
+            btn.classList.add('visible');
         } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 25);
-}
-
-// ============================================
-// Particles Background
-// ============================================
-function createParticles() {
-    const container = document.getElementById('particles');
-    const count = window.innerWidth < 768 ? 20 : 40;
-    
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.width = Math.random() * 4 + 1 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.animationDelay = Math.random() * 8 + 's';
-        particle.style.animationDuration = Math.random() * 10 + 10 + 's';
-        container.appendChild(particle);
-    }
-}
-
-createParticles();
-
-// ============================================
-// Hero Image Parallax
-// ============================================
-const heroImg = document.getElementById('hero-jersey-img');
-
-window.addEventListener('scroll', () => {
-    if (window.innerWidth > 768) {
-        const scrolled = window.pageYOffset;
-        if (heroImg && scrolled < window.innerHeight) {
-            heroImg.style.transform = `translateY(${scrolled * 0.15}px) rotate(${scrolled * 0.02}deg)`;
+            btn.classList.remove('visible');
         }
     }
-});
 
-// Mouse parallax on hero
-const heroSection = document.querySelector('.hero');
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
 
-if (window.innerWidth > 1024) {
-    heroSection.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
-        
-        if (heroImg) {
-            heroImg.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        }
-    });
-    
-    heroSection.addEventListener('mouseleave', () => {
-        if (heroImg) {
-            heroImg.style.transform = 'rotateY(0deg) rotateX(0deg)';
-            heroImg.style.transition = 'transform 0.5s ease';
-        }
-    });
-    
-    heroSection.addEventListener('mouseenter', () => {
-        if (heroImg) {
-            heroImg.style.transition = 'none';
-        }
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// ============================================
-// Contact Form
-// ============================================
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const btn = document.getElementById('form-submit');
-    const originalContent = btn.innerHTML;
-    
-    btn.innerHTML = '<span>Sending...</span>';
-    btn.disabled = true;
-    
-    setTimeout(() => {
-        btn.innerHTML = '<span>Message Sent! ✓</span>';
-        btn.classList.add('success');
-        
-        setTimeout(() => {
-            btn.innerHTML = originalContent;
-            btn.disabled = false;
-            btn.classList.remove('success');
-            document.getElementById('contact-form').reset();
-        }, 3000);
-    }, 1500);
-});
-
-// ============================================
-// Marquee pause on hover
-// ============================================
-const marquee = document.querySelector('.marquee');
-if (marquee) {
-    marquee.addEventListener('mouseenter', () => {
-        marquee.querySelector('.marquee-content').style.animationPlayState = 'paused';
-    });
-    marquee.addEventListener('mouseleave', () => {
-        marquee.querySelector('.marquee-content').style.animationPlayState = 'running';
+/* ----------------------------------------------------------
+   10. MARQUEE — Pause on Hover
+   ---------------------------------------------------------- */
+function initMarquee() {
+    const marquees = document.querySelectorAll('.marquee, .marquee-track');
+    marquees.forEach(m => {
+        m.addEventListener('mouseenter', () => {
+            m.style.animationPlayState = 'paused';
+            // Also pause children in case animation is on inner element
+            const inner = m.querySelector('.marquee__inner, .marquee-content');
+            if (inner) inner.style.animationPlayState = 'paused';
+        });
+        m.addEventListener('mouseleave', () => {
+            m.style.animationPlayState = 'running';
+            const inner = m.querySelector('.marquee__inner, .marquee-content');
+            if (inner) inner.style.animationPlayState = 'running';
+        });
     });
 }
 
-// ============================================
-// About Cards hover effect
-// ============================================
-const aboutCards = document.querySelectorAll('.about-card');
-aboutCards.forEach((card, index) => {
-    card.addEventListener('mouseenter', () => {
-        aboutCards.forEach(c => c.classList.add('spread'));
+/* ----------------------------------------------------------
+   11. ABOUT CARDS — Spread on Hover
+   ---------------------------------------------------------- */
+function initAboutCards() {
+    const container = document.querySelector('.about-cards, .about-grid');
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.about-card');
+    if (cards.length < 2) return;
+
+    container.addEventListener('mouseenter', () => {
+        container.classList.add('about-cards--spread');
     });
-    card.addEventListener('mouseleave', () => {
-        aboutCards.forEach(c => c.classList.remove('spread'));
+    container.addEventListener('mouseleave', () => {
+        container.classList.remove('about-cards--spread');
     });
+
+    // Individual card hover tilt (subtle)
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 8;
+            const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -8;
+            card.style.transform = `perspective(600px) rotateY(${x}deg) rotateX(${y}deg) scale(1.03)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+}
+
+/* ----------------------------------------------------------
+   12. ORDER NOW BUTTONS — Global Binding
+   All "Order Now" buttons open Facebook Messenger / FB page.
+   ---------------------------------------------------------- */
+function initOrderButtons() {
+    // Bind all Order Now / order-now buttons that aren't inside the product grid
+    // (grid buttons are bound at render time in initProductGrid)
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-order-now, [data-action="order"], .order-now-btn');
+        if (!btn) return;
+
+        // Don't double-handle product grid buttons
+        if (btn.closest('.products-grid, #products-grid')) return;
+
+        e.preventDefault();
+        window.open(FB_MESSENGER, '_blank');
+    });
+
+    // CTA buttons in hero / footer that link to order
+    document.querySelectorAll('a[href="#order"], a[href="#order-now"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open(FB_PAGE_URL, '_blank');
+        });
+    });
+}
+
+/* ----------------------------------------------------------
+   UTILITIES
+   ---------------------------------------------------------- */
+
+/**
+ * Debounce helper
+ */
+function debounce(fn, ms) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), ms);
+    };
+}
+
+/**
+ * Throttle helper (rAF-based)
+ */
+function rafThrottle(fn) {
+    let ticking = false;
+    return (...args) => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                fn(...args);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+}
+
+/* ----------------------------------------------------------
+   BOOTSTRAP — Kick everything off on DOM ready
+   ---------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+    initPreloader();
+    initNavbar();
+    initHero();
+    initProductGrid();
+    initContactForm();
+    initParticles();
+    initBackToTop();
+    initMarquee();
+    initAboutCards();
+    initOrderButtons();
 });

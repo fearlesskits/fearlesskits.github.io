@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fearless Kits — Premium Player Edition Jerseys | Wear the Legacy, Be Fearless!</title>
-    <meta name="description" content="Fearless Kits offers authentic imported player edition jerseys. Premium quality, bold designs. Wear the legacy, Be Fearless!">
-    <meta name="keywords" content="player edition jersey, football jersey, soccer jersey, imported jersey, premium sportswear, Fearless Kits">
+    <title>Fearless Kits — Premium Player Edition Jerseys | Wear the Legacy. Be Fearless!</title>
+    <meta name="description" content="Fearless Kits offers authentic imported player edition jerseys. Premium quality, bold designs. Real Madrid, Barcelona, PSG, Man City. Wear the Legacy. Be Fearless!">
+    <meta name="keywords" content="player edition jersey, football jersey, soccer jersey, imported jersey, premium sportswear, Fearless Kits, Real Madrid jersey, Barcelona jersey, PSG jersey">
     <meta name="author" content="Fearless Kits">
     
     <!-- Open Graph -->
     <meta property="og:title" content="Fearless Kits — Premium Player Edition Jerseys">
-    <meta property="og:description" content="Authentic imported player edition jerseys. Premium quality, bold designs. Wear the legacy, Be Fearless!">
+    <meta property="og:description" content="Authentic imported player edition jerseys. Real Madrid, Barcelona, PSG, Man City. Wear the Legacy. Be Fearless!">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/hero-jersey.png">
+    <meta property="og:image" content="images/logo-full.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo-icon.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,20 +26,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <!-- Preloader -->
     <div id="preloader" class="preloader">
         <div class="preloader-inner">
-            <div class="preloader-logo">FK</div>
+            <img src="images/logo-icon.png" alt="FK" class="preloader-logo-img">
             <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
         </div>
     </div>
+
     <!-- Floating Particles Background -->
     <div id="particles" class="particles-container"></div>
+
     <!-- Navigation -->
     <nav id="navbar" class="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo" id="nav-logo">
-                <span class="logo-icon">FK</span>
+                <img src="images/logo-icon.png" alt="Fearless Kits" class="nav-logo-img">
                 <span class="logo-text">FEARLESS KITS</span>
             </a>
             <div class="nav-links" id="nav-links">
@@ -47,7 +53,7 @@
                 <a href="#contact" class="nav-link" data-section="contact">Contact</a>
             </div>
             <div class="nav-actions">
-                <a href="#contact" class="nav-cta">Order Now</a>
+                <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="nav-cta">Order Now</a>
                 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
                     <span></span>
                     <span></span>
@@ -56,6 +62,7 @@
             </div>
         </div>
     </nav>
+
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay">
         <div class="mobile-menu-content">
@@ -64,9 +71,10 @@
             <a href="#about" class="mobile-link">About</a>
             <a href="#why-us" class="mobile-link">Why Us</a>
             <a href="#contact" class="mobile-link">Contact</a>
-            <a href="#contact" class="mobile-cta">Order Now</a>
+            <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="mobile-cta">Order Now</a>
         </div>
     </div>
+
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-bg-gradient"></div>
@@ -78,7 +86,7 @@
                 </div>
                 <h1 class="hero-title" data-animate="fade-up" data-delay="100">
                     Wear the<br>
-                    <span class="hero-title-accent">Legacy</span>,<br>
+                    <span class="hero-title-accent">Legacy.</span><br>
                     Be <span class="hero-title-highlight">Fearless!</span>
                 </h1>
                 <p class="hero-subtitle" data-animate="fade-up" data-delay="200">
@@ -90,7 +98,7 @@
                         <span>Explore Collection</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
-                    <a href="#contact" class="btn btn-outline">
+                    <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
                         <span>Place Order</span>
                     </a>
                 </div>
@@ -101,7 +109,7 @@
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat">
-                        <span class="stat-number" data-count="150">0</span><span class="stat-suffix">+</span>
+                        <span class="stat-number" data-count="100">0</span><span class="stat-suffix">+</span>
                         <span class="stat-label">Jersey Designs</span>
                     </div>
                     <div class="stat-divider"></div>
@@ -113,8 +121,20 @@
             </div>
             <div class="hero-image" data-animate="fade-left" data-delay="200">
                 <div class="hero-image-glow"></div>
-                <div class="hero-image-ring"></div>
-                <img src="images/hero-jersey.png" alt="Premium Player Edition Jersey - Fearless Kits" id="hero-jersey-img">
+                <div class="hero-jerseys-container">
+                    <div class="hero-jersey-float" style="--float-delay: 0s; --float-duration: 6s;">
+                        <img src="images/real-madrid-home.png" alt="Real Madrid Home Kit - Player Edition">
+                    </div>
+                    <div class="hero-jersey-float" style="--float-delay: 1.5s; --float-duration: 7s;">
+                        <img src="images/jersey-red.png" alt="Barcelona Home Kit - Player Edition">
+                    </div>
+                    <div class="hero-jersey-float" style="--float-delay: 0.8s; --float-duration: 8s;">
+                        <img src="images/jersey-black.png" alt="PSG Jordan Kit - Player Edition">
+                    </div>
+                    <div class="hero-jersey-float" style="--float-delay: 2s; --float-duration: 6.5s;">
+                        <img src="images/jersey-blue.png" alt="Manchester City Home Kit - Player Edition">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="hero-scroll-indicator" data-animate="fade-up" data-delay="600">
@@ -124,23 +144,25 @@
             </div>
         </div>
     </section>
+
     <!-- Marquee Banner -->
     <section class="marquee-section">
         <div class="marquee">
             <div class="marquee-content">
                 <span>⚽ PLAYER EDITION</span>
                 <span>★ PREMIUM QUALITY</span>
-                <span>🔥 IMPORTED FROM CHINA</span>
+                <span>🔥 IMPORTED JERSEYS</span>
                 <span>✦ AUTHENTIC DESIGNS</span>
                 <span>💎 FEARLESS KITS</span>
                 <span>⚽ PLAYER EDITION</span>
                 <span>★ PREMIUM QUALITY</span>
-                <span>🔥 IMPORTED FROM CHINA</span>
+                <span>🔥 IMPORTED JERSEYS</span>
                 <span>✦ AUTHENTIC DESIGNS</span>
                 <span>💎 FEARLESS KITS</span>
             </div>
         </div>
     </section>
+
     <!-- Collections Section -->
     <section id="collections" class="collections">
         <div class="container">
@@ -149,18 +171,21 @@
                 <h2 class="section-title">Premium <span class="accent">Player Edition</span> Jerseys</h2>
                 <p class="section-subtitle">Each jersey is carefully selected and imported to ensure the highest quality. Authentic designs that make you stand out on and off the pitch.</p>
             </div>
+
             <!-- Filter Tabs -->
             <div class="filter-tabs" data-animate="fade-up" data-delay="100">
                 <button class="filter-tab active" data-filter="all">All</button>
                 <button class="filter-tab" data-filter="premier-league">Premier League</button>
                 <button class="filter-tab" data-filter="la-liga">La Liga</button>
-                <button class="filter-tab" data-filter="serie-a">Serie A</button>
-                <button class="filter-tab" data-filter="national">National Team</button>
+                <button class="filter-tab" data-filter="ligue-1">Ligue 1</button>
+                <button class="filter-tab" data-filter="national">National Teams</button>
             </div>
+
             <!-- Products Grid -->
             <div class="products-grid" id="products-grid">
                 <!-- Products will be injected via JS -->
             </div>
+
             <div class="collections-cta" data-animate="fade-up">
                 <p>Can't find what you're looking for?</p>
                 <a href="#contact" class="btn btn-primary">
@@ -170,6 +195,7 @@
             </div>
         </div>
     </section>
+
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
@@ -177,13 +203,13 @@
                 <div class="about-visual" data-animate="fade-right">
                     <div class="about-card-stack">
                         <div class="about-card about-card-1">
-                            <img src="images/jersey-black.png" alt="Black Edition Jersey">
+                            <img src="images/jersey-black.png" alt="PSG Jordan Kit">
                         </div>
                         <div class="about-card about-card-2">
-                            <img src="images/jersey-red.png" alt="Red Edition Jersey">
+                            <img src="images/jersey-red.png" alt="Barcelona Home Kit">
                         </div>
                         <div class="about-card about-card-3">
-                            <img src="images/jersey-white.png" alt="White Edition Jersey">
+                            <img src="images/real-madrid-home.png" alt="Real Madrid Home Kit">
                         </div>
                     </div>
                 </div>
@@ -191,15 +217,10 @@
                     <span class="section-tag">Our Story</span>
                     <h2 class="section-title">Born from <span class="accent">Passion</span>, Built on <span class="accent">Quality</span></h2>
                     <p class="about-text">
-                        Fearless Kits was born from a simple belief — every football fan deserves access to 
-                        premium player edition jerseys without breaking the bank. We source authentic quality 
-                        jerseys directly from top manufacturers in China, ensuring you get the same premium 
-                        feel at a fraction of the price.
+                        Fearless Kits was founded on the belief that every football fan should have access to premium player edition jerseys without overspending. We source authentic quality jerseys directly from top manufacturers, ensuring that you receive the same premium feel at a much more affordable price.
                     </p>
                     <p class="about-text">
-                        Our collection features jerseys from the world's biggest clubs and national teams, 
-                        all crafted with the same attention to detail as the ones worn by your favorite players 
-                        on the pitch.
+                        Our collection showcases jerseys from the biggest clubs worldwide, including Real Madrid, Barcelona, PSG, and Manchester City, all crafted with the same attention to detail as those worn by your favorite players on the pitch.
                     </p>
                     <div class="about-features">
                         <div class="about-feature">
@@ -234,13 +255,14 @@
             </div>
         </div>
     </section>
+
     <!-- Why Us Section -->
     <section id="why-us" class="why-us">
         <div class="container">
             <div class="section-header" data-animate="fade-up">
                 <span class="section-tag">Why Choose Us</span>
                 <h2 class="section-title">The <span class="accent">Fearless</span> Difference</h2>
-                <p class="section-subtitle">We're not just selling jerseys — we're delivering an experience. Here's what sets us apart.</p>
+                <p class="section-subtitle">We're not just selling jerseys, we're delivering an experience. Here's what sets us apart.</p>
             </div>
             <div class="why-us-grid">
                 <div class="why-card" data-animate="fade-up" data-delay="0">
@@ -249,7 +271,7 @@
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
                     </div>
                     <h3>Player Edition Quality</h3>
-                    <p>Not your average replica. Our jerseys use the same premium fabric technology found in actual player edition kits — breathable, lightweight, and built for performance.</p>
+                    <p>Not your average replica. Our jerseys use the same premium fabric technology found in actual player edition kits, breathable, lightweight, and built for performance.</p>
                 </div>
                 <div class="why-card" data-animate="fade-up" data-delay="100">
                     <div class="why-card-number">02</div>
@@ -257,7 +279,7 @@
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     </div>
                     <h3>Direct Import</h3>
-                    <p>We cut out the middlemen. Our jerseys are sourced directly from premium manufacturers in China, giving you top-tier quality at unbeatable prices.</p>
+                    <p>We cut out the middlemen. Our jerseys are sourced directly from premium manufacturers, giving you top-tier quality at unbeatable prices.</p>
                 </div>
                 <div class="why-card" data-animate="fade-up" data-delay="200">
                     <div class="why-card-number">03</div>
@@ -265,7 +287,7 @@
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                     </div>
                     <h3>Nationwide Delivery</h3>
-                    <p>From order to doorstep — fast and reliable delivery across the country. Track your order every step of the way.</p>
+                    <p>From order to doorstep, fast and reliable delivery across the country. Track your order every step of the way.</p>
                 </div>
                 <div class="why-card" data-animate="fade-up" data-delay="300">
                     <div class="why-card-number">04</div>
@@ -278,6 +300,7 @@
             </div>
         </div>
     </section>
+
     <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
@@ -288,33 +311,33 @@
             <div class="testimonials-grid" data-animate="fade-up" data-delay="100">
                 <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"The quality is insane for the price! Got a Barcelona player edition and it feels exactly like the real deal. Will definitely order again!"</p>
+                    <p class="testimonial-text">"Great quality for the price! I got the Barcelona player edition, and it feels authentic. Can't wait to order again!"</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">RA</div>
+                        <div class="author-avatar">SB</div>
                         <div>
-                            <strong>Rahim Ahmed</strong>
+                            <strong>Mohammad Shafiullah</strong>
                             <span>Verified Buyer</span>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card featured">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Fearless Kits is my go-to for jerseys now. The fabric quality, the stitching, the details — everything is top notch. My friends keep asking where I get them from!"</p>
+                    <p class="testimonial-text">"Fearless Kits has become my favorite source for jerseys. The fabric quality, stitching, and details are all exceptional. My friends keep asking where I purchase them!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">TH</div>
                         <div>
-                            <strong>Tanvir Hasan</strong>
+                            <strong>Shafin Sami</strong>
                             <span>Repeat Customer</span>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Fast delivery and amazing packaging. The Real Madrid away kit I ordered was chef's kiss. 10/10 would recommend Fearless Kits to everyone!"</p>
+                    <p class="testimonial-text">"Fast delivery and excellent packaging. The Real Madrid away kit I ordered was perfect. 10/10 would recommend Fearless Kits to everyone!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">SK</div>
                         <div>
-                            <strong>Sakib Khan</strong>
+                            <strong>Saad M Khan</strong>
                             <span>Verified Buyer</span>
                         </div>
                     </div>
@@ -322,7 +345,8 @@
             </div>
         </div>
     </section>
-    <!-- Instagram / Social Feed Section -->
+
+    <!-- Social Feed Section -->
     <section class="social-feed">
         <div class="container">
             <div class="section-header" data-animate="fade-up">
@@ -362,6 +386,7 @@
             </div>
         </div>
     </section>
+
     <!-- Contact / Order Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -416,36 +441,74 @@
                     <form class="contact-form" id="contact-form">
                         <h3 class="form-title">Send us a Message</h3>
                         <div class="form-group">
-                            <input type="text" id="form-name" placeholder="Your Name" required>
+                            <input type="text" id="form-name" name="name" placeholder="Your Name" required>
                             <label for="form-name">Your Name</label>
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="form-phone" placeholder="Phone Number" required>
+                            <input type="tel" id="form-phone" name="phone" placeholder="Phone Number" required>
                             <label for="form-phone">Phone Number</label>
                         </div>
                         <div class="form-group">
-                            <textarea id="form-message" placeholder="Tell us which jersey you're looking for..." rows="4" required></textarea>
+                            <textarea id="form-message" name="message" placeholder="Tell us which jersey you're looking for..." rows="4" required></textarea>
                             <label for="form-message">Your Message</label>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full" id="form-submit">
                             <span>Send Message</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                         </button>
+                        <p class="form-note">💬 Or message us directly on <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" target="_blank">Facebook</a> for faster response!</p>
                     </form>
+                    <!-- Hidden iframe for Google Forms submission -->
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Product Quick-View Modal -->
+    <div class="product-modal-overlay" id="product-modal-overlay">
+        <div class="product-modal" id="product-modal">
+            <button class="modal-close" id="modal-close" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="modal-gallery">
+                <div class="modal-main-image-wrapper">
+                    <img src="" alt="" class="modal-main-image" id="modal-main-image">
+                </div>
+                <div class="modal-thumbnails" id="modal-thumbnails">
+                    <!-- Thumbnails injected via JS -->
+                </div>
+            </div>
+            <div class="modal-info">
+                <span class="modal-club" id="modal-club"></span>
+                <h2 class="modal-name" id="modal-name"></h2>
+                <span class="modal-type" id="modal-type"></span>
+                <div class="modal-price" id="modal-price"></div>
+                <div class="modal-sizes-section">
+                    <span class="modal-sizes-label">Select Size:</span>
+                    <div class="modal-sizes" id="modal-sizes">
+                        <!-- Size buttons injected via JS -->
+                    </div>
+                </div>
+                <p class="modal-description" id="modal-description"></p>
+                <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full modal-order-btn" id="modal-order-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.907 1.434 5.503 3.68 7.2V22l3.3-1.815c.88.244 1.813.376 2.78.376h.24c5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.07 12.446l-2.55-2.72-4.98 2.72 5.47-5.81 2.61 2.72 4.92-2.72-5.47 5.81z"/></svg>
+                    <span>Order on Facebook</span>
+                </a>
+                <p class="modal-order-note">Chat with us on Facebook Messenger to complete your order</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <span class="logo-icon">FK</span>
-                        <span class="logo-text">FEARLESS KITS</span>
+                        <img src="images/logo-full.png" alt="Fearless Kits" class="footer-logo-img">
                     </div>
-                    <p class="footer-tagline">Wear the Legacy, Be Fearless!</p>
+                    <p class="footer-tagline">Wear the Legacy. Be Fearless!</p>
                     <p class="footer-desc">Premium imported player edition jerseys for true football enthusiasts. Quality you can feel, style you can wear.</p>
                 </div>
                 <div class="footer-links">
@@ -459,22 +522,22 @@
                     <h4>Categories</h4>
                     <a href="#collections">Premier League</a>
                     <a href="#collections">La Liga</a>
-                    <a href="#collections">Serie A</a>
+                    <a href="#collections">Ligue 1</a>
                     <a href="#collections">National Teams</a>
                 </div>
                 <div class="footer-social">
                     <h4>Follow Us</h4>
                     <div class="footer-social-links">
-                        <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" aria-label="Facebook" id="footer-facebook" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
-                        <a href="https://www.instagram.com/fearlesskits/" aria-label="Instagram" id="footer-instagram" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/fearlesskits/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                         </a>
-                        <a href="https://www.tiktok.com/@fearless.kits" aria-label="TikTok" id="footer-tiktok" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.tiktok.com/@fearless.kits" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13a8.28 8.28 0 005.58 2.16V11.7a4.83 4.83 0 01-3.77-1.85V6.69z"/></svg>
                         </a>
-                        <a href="https://www.youtube.com/@fearlesskits" aria-label="YouTube" id="footer-youtube" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.youtube.com/@fearlesskits" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </a>
                     </div>
@@ -482,14 +545,16 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Fearless Kits. All rights reserved.</p>
-                <p>Wear the Legacy, Be Fearless! 🔥</p>
+                <p>Wear the Legacy. Be Fearless! 🔥</p>
             </div>
         </div>
     </footer>
+
     <!-- Back to Top Button -->
     <button class="back-to-top" id="back-to-top" aria-label="Back to top">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
     </button>
+
     <script src="script.js"></script>
 </body>
 </html>
