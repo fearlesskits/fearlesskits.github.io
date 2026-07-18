@@ -108,7 +108,7 @@ const products = [
 /* ----------------------------------------------------------
    Facebook links used across the site
    ---------------------------------------------------------- */
-const FB_PAGE_URL  = 'https://www.facebook.com/share/1FJ75YRtwj/?mibextid=wwXIfr';
+const FB_PAGE_URL  = 'https://www.facebook.com/fearlesskits';
 const FB_MESSENGER = 'https://m.me/fearlesskits';
 const INSTAGRAM_URL = 'https://www.instagram.com/fearlesskits/';
 
