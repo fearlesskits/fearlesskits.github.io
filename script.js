@@ -32,7 +32,7 @@ const products = [
         type: 'Player Edition',
         price: '৳1,299',
         priceNum: 1299,
-        images: ['images/real-madrid-home.png', 'images/rma_home_1.jpg', 'images/rma_home_2.jpg'],
+        images: ['images/real-madrid-home.png', 'images/rma_home_1.JPG', 'images/rma_home_2.JPG'],
         sizes: ['M', 'L', 'XL', 'XXL'],
         badge: 'Bestseller',
         badgeType: 'popular',
