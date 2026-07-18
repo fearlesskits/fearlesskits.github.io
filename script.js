@@ -32,7 +32,7 @@ const products = [
         type: 'Player Edition',
         price: '৳1,299',
         priceNum: 1299,
-        images: ['images/real-madrid-home.png', 'images/jersey-white.png', 'images/real-madrid-home.png'],
+        images: ['images/real-madrid-home.png', 'images/rma_home_1.jpg', 'images/rma_home_2.jpg'],
         sizes: ['M', 'L', 'XL', 'XXL'],
         badge: 'Bestseller',
         badgeType: 'popular',
@@ -79,6 +79,29 @@ const products = [
         badge: 'Limited',
         badgeType: 'hot',
         description: 'PSG 2026/27 Jordan Special Edition. Premium black with Jumpman logo. Limited availability.'
+    },
+    {
+        id: 6, // Make sure this is a unique number for every new jersey
+        name: 'Liverpool Home Kit 26/27',
+        club: 'Liverpool',
+        league: 'premier-league', // This must match the filter category exactly
+        type: 'Player Edition',
+        price: '৳1,299',
+        priceNum: 1299,
+        images: [
+            'images/liverpool-home-1.png', 
+            'images/liverpool-home-2.png', 
+            'images/liverpool-home-3.png'
+        ], // Update these to match your actual image file names
+        sizes: ['M', 'L', 'XL', 'XXL'],
+        
+        // This creates your upper tag!
+        badge: 'Coming Soon', 
+        
+        // This sets the tag's color. Options are 'hot' (red), 'new' (green), or 'popular' (gold)
+        badgeType: 'popular', 
+        
+        description: 'Liverpool 2026/27 Home Kit Player Edition. Premium breathable fabric. This item is coming soon.'
     }
 ];
 
