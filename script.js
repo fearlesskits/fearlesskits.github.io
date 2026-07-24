@@ -89,18 +89,18 @@ const products = [
         price: '৳1,299',
         priceNum: 1299,
         images: [
-            'images/liverpool-home-1.png', 
-            'images/liverpool-home-2.png', 
+            'images/liverpool-home-1.png',
+            'images/liverpool-home-2.png',
             'images/liverpool-home-3.png'
         ], // Update these to match your actual image file names
         sizes: ['M', 'L', 'XL', 'XXL'],
-        
+
         // This creates your upper tag!
-        badge: 'Coming Soon', 
-        
+        badge: 'Coming Soon',
+
         // This sets the tag's color. Options are 'hot' (red), 'new' (green), or 'popular' (gold)
-        badgeType: 'popular', 
-        
+        badgeType: 'popular',
+
         description: 'Liverpool 2026/27 Home Kit Player Edition. Premium breathable fabric. This item is coming soon.'
     }
 ];
@@ -108,9 +108,9 @@ const products = [
 /* ----------------------------------------------------------
    Facebook links used across the site
    ---------------------------------------------------------- */
-const FB_PAGE_URL  = 'https://www.facebook.com/fearlesskits';
+const FB_PAGE_URL = 'https://www.facebook.com/fearlesskits';
 const FB_MESSENGER = 'https://m.me/fearlesskits';
-const INSTAGRAM_URL = 'https://www.instagram.com/fearlesskits/';
+const INSTAGRAM_URL = 'https://www.instagram.com/fearless.kits/';
 
 /* ----------------------------------------------------------
    1. PRELOADER
@@ -146,17 +146,17 @@ function initPreloader() {
    2. NAVBAR
    ---------------------------------------------------------- */
 function initNavbar() {
-    const nav       = document.querySelector('.navbar');
-    const links     = document.querySelectorAll('.nav-link[href^="#"]');
-    const sections  = document.querySelectorAll('section[id]');
-    const burger    = document.querySelector('.nav-toggle, #nav-toggle');
+    const nav = document.querySelector('.navbar');
+    const links = document.querySelectorAll('.nav-link[href^="#"]');
+    const sections = document.querySelectorAll('section[id]');
+    const burger = document.querySelector('.nav-toggle, #nav-toggle');
     const mobileNav = document.querySelector('.mobile-menu-overlay, #mobile-menu-overlay');
     const mobileLinks = document.querySelectorAll('.mobile-menu-overlay a, .mobile-link');
 
     if (!nav) return;
 
     let lastScroll = 0;
-    let ticking    = false;
+    let ticking = false;
 
     /* --- Scroll show/hide + glassmorphism --- */
     function onScroll() {
@@ -258,7 +258,7 @@ function initHero() {
         // Each jersey gets a unique animation delay & duration via CSS.
         // JS adds random initial positions for variety.
         floatImages.forEach((img, i) => {
-            img.style.animationDelay  = `${i * 0.7}s`;
+            img.style.animationDelay = `${i * 0.7}s`;
             img.style.animationDuration = `${4 + i * 0.8}s`;
         });
     }
@@ -267,7 +267,7 @@ function initHero() {
     if (window.matchMedia('(pointer: fine)').matches) {
         hero.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
-            const cx = (clientX / window.innerWidth  - 0.5) * 2; // -1 to 1
+            const cx = (clientX / window.innerWidth - 0.5) * 2; // -1 to 1
             const cy = (clientY / window.innerHeight - 0.5) * 2;
 
             const layers = hero.querySelectorAll('[data-parallax]');
@@ -281,35 +281,59 @@ function initHero() {
     }
 }
 
-/* --- Counter animation --- */
+/* ----------------------------------------------------------
+   3b. ENHANCED ROLLING STAT COUNTERS
+   ---------------------------------------------------------- */
 function animateHeroCounters() {
-    const counters = document.querySelectorAll('[data-count]');
-    counters.forEach(el => {
-        const target = parseInt(el.dataset.count, 10);
-        if (isNaN(target)) return;
+    const counters = document.querySelectorAll('.stat-number[data-count]');
+    if (!counters.length) return;
 
-        const duration = 2000; // ms
-        const step = Math.max(1, Math.floor(target / 60));
-        let current = 0;
-        const start = performance.now();
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count, 10);
+                animateCounter(el, target);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
 
-        function tick(now) {
-            const progress = Math.min((now - start) / duration, 1);
-            // Ease-out quad
-            const eased = 1 - (1 - progress) * (1 - progress);
-            current = Math.floor(eased * target);
-            el.textContent = current;
-            if (progress < 1) requestAnimationFrame(tick);
+    counters.forEach(c => observer.observe(c));
+}
+
+function animateCounter(el, target) {
+    const duration = 2000;
+    const start = performance.now();
+    let current = 0;
+
+    function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // Ease-out cubic for smooth deceleration
+        const eased = 1 - Math.pow(1 - progress, 3);
+        current = Math.floor(eased * target);
+        el.textContent = current;
+        
+        if (progress < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            el.textContent = target;
+            // Gold shimmer effect on completion
+            el.style.transition = 'text-shadow 0.3s ease';
+            el.style.textShadow = '0 0 20px rgba(200, 164, 78, 0.6)';
+            setTimeout(() => {
+                el.style.textShadow = '';
+            }, 800);
         }
-        requestAnimationFrame(tick);
-    });
+    }
+    requestAnimationFrame(tick);
 }
 
 /* ----------------------------------------------------------
    4. PRODUCT GRID — Filtering & Rendering
    ---------------------------------------------------------- */
 function initProductGrid() {
-    const grid      = document.querySelector('.products-grid, #products-grid');
+    const grid = document.querySelector('.products-grid, #products-grid');
     const filterBar = document.querySelector('.filter-tabs, .product-filters');
     if (!grid) return;
 
@@ -433,6 +457,24 @@ function createQuickViewModal() {
                         <div class="qv-size-options" id="qv-sizes"></div>
                     </div>
 
+                    <button class="size-guide-toggle" id="qv-size-guide-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                        Size Guide
+                    </button>
+                    <div class="size-guide-drawer" id="qv-size-guide">
+                        <table class="size-guide-table">
+                            <thead>
+                                <tr><th>Size</th><th>Chest (in)</th><th>Length (in)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>M</td><td>38-40</td><td>27</td></tr>
+                                <tr><td>L</td><td>40-42</td><td>28</td></tr>
+                                <tr><td>XL</td><td>42-44</td><td>29</td></tr>
+                                <tr><td>XXL</td><td>44-46</td><td>30</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="qv-details__actions">
                         <a href="${FB_PAGE_URL}" target="_blank" rel="noopener" class="btn btn--primary btn--fb-order">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -448,6 +490,18 @@ function createQuickViewModal() {
         </div>
     `;
     document.body.appendChild(modal);
+
+    // Size guide toggle
+    const sizeGuideToggle = modal.querySelector('#qv-size-guide-toggle');
+    const sizeGuideDrawer = modal.querySelector('#qv-size-guide');
+    if (sizeGuideToggle && sizeGuideDrawer) {
+        sizeGuideToggle.addEventListener('click', () => {
+            sizeGuideDrawer.classList.toggle('size-guide-drawer--open');
+            sizeGuideToggle.textContent = sizeGuideDrawer.classList.contains('size-guide-drawer--open') 
+                ? '✕ Close Size Guide' 
+                : '📐 Size Guide';
+        });
+    }
 
     // Close handlers
     modal.querySelector('.qv-modal__close').addEventListener('click', closeQuickView);
@@ -467,17 +521,17 @@ function openQuickView(productId) {
 
     createQuickViewModal(); // ensure it exists
 
-    const modal   = document.getElementById('quick-view-modal');
+    const modal = document.getElementById('quick-view-modal');
     const mainImg = document.getElementById('qv-main-img');
-    const thumbs  = document.getElementById('qv-thumbs');
-    const sizes   = document.getElementById('qv-sizes');
+    const thumbs = document.getElementById('qv-thumbs');
+    const sizes = document.getElementById('qv-sizes');
 
     // Populate details
-    document.getElementById('qv-name').textContent  = product.name;
-    document.getElementById('qv-club').textContent  = product.club;
-    document.getElementById('qv-type').textContent  = product.type;
+    document.getElementById('qv-name').textContent = product.name;
+    document.getElementById('qv-club').textContent = product.club;
+    document.getElementById('qv-type').textContent = product.type;
     document.getElementById('qv-price').textContent = product.price;
-    document.getElementById('qv-desc').textContent  = product.description;
+    document.getElementById('qv-desc').textContent = product.description;
 
     // Gallery — main image
     mainImg.src = product.images[0];
@@ -542,8 +596,8 @@ function initContactForm() {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const name    = form.querySelector('[name="name"]');
-        const phone   = form.querySelector('[name="phone"]');
+        const name = form.querySelector('[name="name"]');
+        const phone = form.querySelector('[name="phone"]');
         const message = form.querySelector('[name="message"]');
 
         if (!name || !phone || !message) return;
@@ -614,7 +668,7 @@ function initParticles() {
     let animId;
 
     function resize() {
-        width  = canvas.width  = canvas.parentElement.clientWidth  || window.innerWidth;
+        width = canvas.width = canvas.parentElement.clientWidth || window.innerWidth;
         height = canvas.height = canvas.parentElement.clientHeight || window.innerHeight;
     }
 
@@ -623,13 +677,13 @@ function initParticles() {
             this.reset();
         }
         reset() {
-            this.x       = Math.random() * width;
-            this.y       = Math.random() * height;
-            this.radius  = Math.random() * 2.5 + 0.5;
-            this.speedX  = (Math.random() - 0.5) * 0.4;
-            this.speedY  = -(Math.random() * 0.5 + 0.15); // drift upward
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.radius = Math.random() * 2.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = -(Math.random() * 0.5 + 0.15); // drift upward
             this.opacity = Math.random() * 0.5 + 0.2;
-            this.life    = 0;
+            this.life = 0;
             this.maxLife = Math.random() * 300 + 200;
         }
         update() {
@@ -701,8 +755,8 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const el    = entry.target;
-                const anim  = el.dataset.animate;   // fade-up, fade-left, fade-right
+                const el = entry.target;
+                const anim = el.dataset.animate;   // fade-up, fade-left, fade-right
                 const delay = el.dataset.delay || 0;
 
                 setTimeout(() => {
@@ -786,8 +840,8 @@ function initAboutCards() {
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 8;
-            const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -8;
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
             card.style.transform = `perspective(600px) rotateY(${x}deg) rotateX(${y}deg) scale(1.03)`;
         });
         card.addEventListener('mouseleave', () => {
@@ -855,17 +909,212 @@ function rafThrottle(fn) {
 }
 
 /* ----------------------------------------------------------
+   13. ROLLING NOTIFICATION BAR
+   ---------------------------------------------------------- */
+function initNotificationBar() {
+    const bar = document.getElementById('notification-bar');
+    const closeBtn = document.getElementById('notification-close');
+    const messages = document.querySelectorAll('.notification-bar__msg');
+    if (!bar || messages.length === 0) return;
+
+    let currentIndex = 0;
+    let intervalId;
+
+    function cycleMessages() {
+        const current = messages[currentIndex];
+        current.classList.remove('active');
+        current.classList.add('exit');
+
+        setTimeout(() => {
+            current.classList.remove('exit');
+            currentIndex = (currentIndex + 1) % messages.length;
+            messages[currentIndex].classList.add('active');
+        }, 500);
+    }
+
+    intervalId = setInterval(cycleMessages, 4000);
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            bar.classList.add('notification-bar--hidden');
+            document.body.classList.add('notification-hidden');
+            clearInterval(intervalId);
+        });
+    }
+}
+
+/* ----------------------------------------------------------
+   14. JERSEY SPOTLIGHT CAROUSEL
+   ---------------------------------------------------------- */
+function initSpotlightCarousel() {
+    const track = document.getElementById('spotlight-track');
+    if (!track) return;
+
+    // Click to open quick view
+    track.querySelectorAll('.spotlight-slide').forEach(slide => {
+        slide.addEventListener('click', () => {
+            const id = parseInt(slide.dataset.id, 10);
+            if (typeof openQuickView === 'function') {
+                openQuickView(id);
+            }
+        });
+    });
+
+    // Drag to scroll (optional enhancement)
+    let isDragging = false;
+    let startX;
+    let scrollLeft;
+
+    track.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX;
+        track.style.animationPlayState = 'paused';
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            track.style.animationPlayState = '';
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const diff = e.pageX - startX;
+        track.style.transform = `translateX(${diff}px)`;
+    });
+}
+
+/* ----------------------------------------------------------
+   15. CURSOR GLOW TRAIL (Desktop only)
+   ---------------------------------------------------------- */
+function initCursorGlow() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const glow = document.getElementById('cursor-glow');
+    if (!glow) return;
+
+    let mouseX = 0, mouseY = 0;
+    let glowX = 0, glowY = 0;
+    let visible = false;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!visible) {
+            visible = true;
+            glow.classList.add('cursor-glow--visible');
+        }
+    });
+
+    document.addEventListener('mouseleave', () => {
+        visible = false;
+        glow.classList.remove('cursor-glow--visible');
+    });
+
+    // Smooth follow with lerp
+    function animate() {
+        glowX += (mouseX - glowX) * 0.08;
+        glowY += (mouseY - glowY) * 0.08;
+        glow.style.left = glowX + 'px';
+        glow.style.top = glowY + 'px';
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+/* ----------------------------------------------------------
+   16. GET NOTIFIED POPUP (First visit, desktop only)
+   ---------------------------------------------------------- */
+function initNotifyPopup() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const popup = document.getElementById('notify-popup');
+    const closeBtn = document.getElementById('notify-popup-close');
+    if (!popup) return;
+
+    const STORAGE_KEY = 'fk_notify_dismissed';
+
+    // Don't show if already dismissed
+    if (localStorage.getItem(STORAGE_KEY)) return;
+
+    // Show after 10 seconds
+    setTimeout(() => {
+        popup.classList.add('notify-popup--visible');
+    }, 10000);
+
+    // Close handler
+    function dismiss() {
+        popup.classList.remove('notify-popup--visible');
+        localStorage.setItem(STORAGE_KEY, 'true');
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', dismiss);
+
+    // Also dismiss when they click the follow button (they're going to Instagram)
+    const followBtn = popup.querySelector('.notify-popup__btn');
+    if (followBtn) followBtn.addEventListener('click', dismiss);
+}
+
+/* ----------------------------------------------------------
+   17. HERO JERSEY AUTO-CYCLE
+   ---------------------------------------------------------- */
+function initHeroCarousel() {
+    const img = document.getElementById('showcase-jersey-img');
+    const labelTag = document.querySelector('.showcase-label__tag');
+    const labelName = document.querySelector('.showcase-label__name');
+    if (!img) return;
+
+    const heroJerseys = [
+        { src: 'images/real-madrid-home.png', badge: 'Bestseller', name: 'Real Madrid Home 26/27' },
+        { src: 'images/jersey-red.png', badge: 'Hot', name: 'Barcelona Home 26/27' },
+        { src: 'images/jersey-black.png', badge: 'Limited', name: 'PSG Jordan Special 26/27' },
+        { src: 'images/jersey-blue.png', badge: 'New', name: 'Man City Home 26/27' },
+        { src: 'images/jersey-yellow.png', badge: 'New', name: 'Barcelona Away 26/27' }
+    ];
+
+    let currentIndex = 0;
+
+    function cycleJersey() {
+        // Fade out
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.9) translateY(10px)';
+        
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % heroJerseys.length;
+            const jersey = heroJerseys[currentIndex];
+            img.src = jersey.src;
+            if (labelTag) labelTag.textContent = jersey.badge;
+            if (labelName) labelName.textContent = jersey.name;
+            
+            // Fade in
+            img.style.opacity = '1';
+            img.style.transform = 'scale(1) translateY(0)';
+        }, 500);
+    }
+
+    // Add transition to the image
+    img.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+    // Cycle every 4 seconds
+    setInterval(cycleJersey, 4000);
+}
+
+/* ----------------------------------------------------------
    BOOTSTRAP — Kick everything off on DOM ready
    ---------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
+    initNotificationBar();
     initNavbar();
     initHero();
+    initHeroCarousel();
     initProductGrid();
-    initContactForm();
     initParticles();
     initBackToTop();
     initMarquee();
     initAboutCards();
     initOrderButtons();
+    initCursorGlow();
+    initNotifyPopup();
 });
